@@ -6,18 +6,19 @@ class Beardle {
     _submit      = document.getElementById('submit');
     _skip        = document.getElementById('skip');
     _control     = document.getElementById('control');
+    _input       = document.getElementById('input');
     _badStep     = document.querySelector('[data-step="-1"]');
     _timeLength  = document.getElementById('timeLength');
     _timeCurrent = document.getElementById('timeCurrent');
     _playIcon    = document.getElementById('playIcon');
 
     steps = {
-        0: 0.5,
-        1: 1.5,
-        2: 3.5,
-        4: 10.5,
-        5: 15.5,
-        6: 9999
+        0: 1.5,
+        1: 2.5,
+        2: 4.5,
+        3: 11.5,
+        4: 16.5,
+        5: 9999
     };
 
     checker     = null;
@@ -28,7 +29,8 @@ class Beardle {
     options     = {
         key: '',
         currentStep: 0,
-        inputs: []
+        inputs: [],
+        finished: false
     };
 
 
@@ -82,7 +84,7 @@ class Beardle {
         this.audio.currentTime = 0;
 
         this.audio.addEventListener('loadedmetadata', (event) => {
-            _timeLength.innerText = _this.calcTime(_this.audio.duration);
+            _this._timeLength.innerText = _this.calcTime(_this.audio.duration);
         });
     };
 
@@ -99,7 +101,7 @@ class Beardle {
 
         // Disable submit button if length of answer is lower than 3
         _this._answer.addEventListener('input', (event) => {
-            _this._submit.disabled = (this.value.length < 3);
+            _this._submit.disabled = (_this._answer.value.length < 3);
         });
 
 
@@ -139,18 +141,137 @@ class Beardle {
 
             _this._playIcon.classList.remove('animate-spin');
         });
+
+
+        _this._skip.addEventListener('click', (event) => {
+            event.preventDefault();
+            _this.skip();
+        });
+
+        _this._submit.addEventListener('click', (event) => {
+            event.preventDefault();
+            _this.submit();
+        });
     };
 
 
     /**
      * Return an object with the step and guide
-     * @param {*} num
+     * @param {integer} num
      * @returns
      */
     getSteps = (num) => {
         return {
-            step: document.querySelector(`[data-step="${num}]"`),
+            step: document.querySelector(`[data-step="${num}"]`),
             guide: document.querySelector(`[data-step-guide="${num}"]`)
         };
+    };
+
+
+    /**
+     *
+     */
+    skip = () => {
+        let _this         = this;
+        const currentStep = _this.options.currentStep;
+        let steps         = _this.getSteps(currentStep);
+
+        _this._container.setAttribute('data-current', currentStep + 1);
+
+        _this._answer.value    = '';
+        _this._submit.disabled = true;
+        steps.step.innerText   = 'Skipped';
+
+        steps.guide.classList.add('bg-warning');
+        steps.step.classList.add('border-warning');
+
+        _this.options.inputs.push('');
+        _this.options.currentStep = (currentStep >= 5 ? 5 : currentStep + 1);
+
+        if (currentStep >= 4) {
+            _this.lose();
+        }
+    };
+
+
+    /**
+     *
+     * @param {*} preDefined
+     * @returns
+     */
+    submit = (preDefined) => {
+        let _this = this;
+
+        const answer      = (preDefined ? preDefined : _this._answer.value);
+        const currentStep = _this.options.currentStep;
+        let step          = _this.getSteps(currentStep);
+
+        _this._container.setAttribute('data-current', currentStep + 1);
+        _this._answer.value    = '';
+        _this._submit.disabled = true;
+        step.step.innerText    = answer;
+
+        if (answer.toLowerCase() !== _this.beardle.toLowerCase()) {
+            step.guide.classList.add('bg-error');
+            step.step.classList.add('border-error');
+
+            _this.options.currentStep = (currentStep >= 5 ? 5 : currentStep + 1);
+            _this.options.inputs.push(answer);
+
+            if (currentStep >= 4) {
+                _this.lose();
+            }
+
+            return;
+        }
+
+        step.step.classList.add('border-success');
+        _this.win();
+    };
+
+
+    /**
+     *
+     */
+    lose = () => {
+        let _this = this;
+
+        _this._input.classList.add('hidden');
+        _this._badStep.classList.remove('hidden', 'border-success');
+        _this._badStep.classList.add('border-error');
+        _this._badStep.innerText  = _this.beardle;
+        _this.options.currentStep = 5;
+        _this.options.finished    = true;
+    };
+
+
+    /**
+     *
+     */
+    win = () => {
+        let _this = this;
+
+        document.querySelectorAll('#beardle .border-light').forEach((element) => {
+            element.classList.add('border-success');
+        });
+
+        _this._input.classList.add('hidden');
+        _this._badStep.classList.add('hidden');
+        _this.options.currentStep = 5;
+        _this.options.finished    = true;
+    };
+
+
+    load = (options) => {
+        let _this = this;
+
+        console.log(options);
+
+        _this.beardle = options.song;
+        _this.songFile = options.file;
+
+        _this.createAudio();
+        _this.setEvents();
+        _this.calcHeight();
     };
 }

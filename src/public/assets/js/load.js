@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(event) {
-    fetch('index.php').then(function(response){
+    fetch('index.php?load=true').then(function(response){
         return response.json();
     }).then(function(response) {
         if (!response.song || !response.file) {
