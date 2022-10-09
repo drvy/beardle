@@ -1,4 +1,16 @@
 {
+  "name": "drvy-beardle",
+  "version": "0.1.0",
+  "author": "Dragomir Yordanov <dyordanov@drvy.net>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tailwindcss -i ./src/assets/css/beardle.css -o ./src/assets/css/beardle.build.css",
+    "watch": "tailwindcss -i ./src/assets/css/beardle.css -o ./src/assets/css/beardle.build.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drvy/beardle.git"
+  },
   "dependencies": {
     "daisyui": "^2.31.0",
     "tailwind": "^4.0.0"
