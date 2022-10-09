@@ -4,8 +4,8 @@
   "author": "Dragomir Yordanov <dyordanov@drvy.net>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tailwindcss -i ./src/assets/css/beardle.css -o ./src/assets/css/beardle.build.css",
-    "watch": "tailwindcss -i ./src/assets/css/beardle.css -o ./src/assets/css/beardle.build.css --watch"
+    "build": "postcss ./src/public/assets/css/beardle.css -o ./src/public/assets/css/beardle.build.css",
+    "watch": "postcss ./src/public/assets/css/beardle.css -o ./src/public/assets/css/beardle.build.css --watch"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,13 @@
   },
   "dependencies": {
     "daisyui": "^2.31.0",
+    "postcss": "^8.4.17",
+    "postcss-minify": "^1.1.0",
     "tailwind": "^4.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "postcss-cli": "^10.0.0",
+    "postcss-import": "^15.0.0"
   }
 }
