@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+audio {
+    display: none;
+}
+
+div:not(#wrap) {
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.wrap {
+    max-width: 725px;
+    margin: 0 auto;
+}
+
+#beardle {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(78vh - 190px);
+    padding-bottom: 10px;
+}
+
+#keyboard {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    height: 230px;
+    max-height: 230px;
+    z-index: 20;
+}
+
+#keyboard #progress [data-step-guide="0"] { width: 5%; }
+#keyboard #progress [data-step-guide="1"] { width: 5%; }
+#keyboard #progress [data-step-guide="2"] { width: 10%; }
+#keyboard #progress [data-step-guide="3"] { width: 20%; }
+#keyboard #progress [data-step-guide="4"] { width: 25%; }
+#keyboard #progress [data-step-guide="5"] { width: 35%; }

@@ -14,7 +14,7 @@
         <header id="header" class="p-2 mb-6">
             <div class="flex justify-center align-center">
                 <h2 class="font-bold uppercase">Beardle</h2>
-                <div class="btn btn-xs whitespace-pre cursor-default">Tasty!</div>
+                <div class="ml-2 btn btn-xs whitespace-pre cursor-default">Tipsy!</div>
             </div>
         </header>
 
