@@ -1,0 +1,5 @@
+node_modules/
+src/public/assets/css/*.build.css
+src/public/assets/js/*.build.js
+src/public/assets/sounds/*
+!src/public/assets/sounds/.gitkeep
