@@ -1,3 +1,5 @@
 node_modules/
-src/assets/sounds/*
-!src/assets/sounds/.gitkeep
+src/public/assets/css/*.build.css
+src/public/assets/js/*.build.js
+src/public/assets/sounds/*
+!src/public/assets/sounds/.gitkeep
