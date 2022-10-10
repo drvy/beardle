@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beardle</title>
 
-
     <link rel="stylesheet" href="assets/css/beardle.build.css">
 </head>
 <body>
@@ -46,6 +45,7 @@
 
         <aside id="keyboard" class="flex flex-col w-full border-t border-base-300 bg-neutral/50">
             <div id="progress" class="flex w-full p-2">
+            <div class="waveform"><div id="waveform"></div></div>
                 <div data-step-guide="0" class="flex-none border border-white/50 h-4">
                     &nbsp;
                 </div>
@@ -71,7 +71,7 @@
                 <div id="timeCurrent">0:00</div>
 
                 <div id="control">
-                    <button id="play" class="btn rounded-full border border-white/75">
+                    <button id="play" class="btn rounded-full border border-white/75" disabled="true">
                         <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" /></svg>
                     </button>
                 </div>
@@ -106,6 +106,8 @@
     <div id="stars2"></div>
     <div id="stars3"></div>
 
+    <script src="https://unpkg.com/wavesurfer.js@6.3.0/dist/wavesurfer.js"></script>
+    <script src="assets/js/vendor/autocomplete.min.js"></script>
     <script src="assets/js/beardle.js"></script>
     <script src="assets/js/load.js"></script>
 </body>
