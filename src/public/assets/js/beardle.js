@@ -90,6 +90,45 @@ class Beardle {
 
 
     /**
+     * Loads and handles the autocompletion of input
+     */
+     loadAutoComplete = () => {
+        let _this = this;
+
+        new Autocomplete('#input', {
+            search: (input) => {
+                if (input.length < 1) {
+                    return [];
+                }
+
+                let result = _this.suggestions.filter(song => {
+                    return (song.toLowerCase().indexOf(input.toLowerCase()) == -1 ? false : true);
+                });
+
+                return result;
+            },
+
+            getResultValue: (result) => {
+                const input = _this._answer.value;
+                const regex = new RegExp(input.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi')
+                return result.replace(regex, `<span class="border-b-2 border-warning">$&</span>`);
+            },
+
+            onSubmit: (result) => {
+                if (typeof result !== 'undefined') {
+                    let tmp = document.createElement('div');
+                    tmp.innerHTML = result;
+                    _this._answer.value    = tmp.textContent || tmp.innerText || '';
+                    _this._submit.disabled = false;
+                } else {
+                    _this._answer.value = '';
+                }
+            }
+        });
+    };
+
+
+    /**
      * Create event listeners
      */
     setEvents = () => {
@@ -169,7 +208,7 @@ class Beardle {
 
 
     /**
-     *
+     * Skips the current step
      */
     skip = () => {
         let _this         = this;
@@ -195,9 +234,9 @@ class Beardle {
 
 
     /**
-     *
-     * @param {*} preDefined
-     * @returns
+     * Submits an answer. If preDefined is empty will use the current answer input
+     * @param {string} preDefined
+     * @returns {undefined}
      */
     submit = (preDefined) => {
         let _this = this;
@@ -231,7 +270,7 @@ class Beardle {
 
 
     /**
-     *
+     * Set the current state to lost and shows the answer
      */
     lose = () => {
         let _this = this;
@@ -246,7 +285,7 @@ class Beardle {
 
 
     /**
-     *
+     * Set the current state to won
      */
     win = () => {
         let _this = this;
@@ -262,6 +301,10 @@ class Beardle {
     };
 
 
+    /**
+     * Loads the game
+     * @param {object} options
+     */
     load = (options) => {
         let _this = this;
 
@@ -269,8 +312,10 @@ class Beardle {
 
         _this.beardle = options.song;
         _this.songFile = options.file;
+        _this.suggestions = options.suggestions;
 
         _this.createAudio();
+        _this.loadAutoComplete();
         _this.setEvents();
         _this.calcHeight();
     };

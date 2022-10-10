@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beardle</title>
 
-
     <link rel="stylesheet" href="assets/css/beardle.build.css">
 </head>
 <body>
@@ -106,6 +105,7 @@
     <div id="stars2"></div>
     <div id="stars3"></div>
 
+    <script src="assets/js/vendor/autocomplete.min.js"></script>
     <script src="assets/js/beardle.js"></script>
     <script src="assets/js/load.js"></script>
 </body>
