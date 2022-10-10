@@ -4,10 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-audio {
-    display: none;
-}
-
 div:not(#wrap) {
     user-select: none;
     -webkit-user-select: none;
@@ -44,6 +40,13 @@ div:not(#wrap) {
 #keyboard #progress [data-step-guide="2"] { width: 20%; }
 #keyboard #progress [data-step-guide="3"] { width: 30%; }
 #keyboard #progress [data-step-guide="4"] { width: 35%; }
+
+.waveform {
+    position: absolute;
+    top: -20px;
+    z-index: -1;
+    width: 100%;
+}
 
 
 .autocomplete-result-list {
