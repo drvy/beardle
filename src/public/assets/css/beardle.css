@@ -45,7 +45,7 @@ div:not(#wrap) {
     position: absolute;
     top: -20px;
     z-index: -1;
-    width: 100%;
+    width: calc(100% - 15px);
 }
 
 
