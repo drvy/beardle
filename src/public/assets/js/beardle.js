@@ -76,20 +76,9 @@ class Beardle {
     createAudio = () => {
         let _this = this;
 
-        // this.audio      = document.createElement('audio');
-        // this.audio.id   = 'song';
-        // this.audio.type = 'audio/mpeg';
-        // this.audio.src  = _this.getSoundsLocation(_this.songFile);
-        // this.audio.load();
-        // this.audio.currentTime = 0;
-
-        // this.audio.addEventListener('loadedmetadata', (event) => {
-        //     _this._timeLength.innerText = _this.calcTime(_this.audio.duration);
-        // });
-
         _this.audio = WaveSurfer.create({
             container    : document.querySelector('#waveform'),
-            waveColor    : 'black',
+            waveColor    : '#534681',
             progressColor: 'white',
             hideCursor   : true,
             normalize    : true,
@@ -327,10 +316,8 @@ class Beardle {
     load = (options) => {
         let _this = this;
 
-        console.log(options);
-
-        _this.beardle = options.song;
-        _this.songFile = options.file;
+        _this.beardle     = options.song;
+        _this.songFile    = options.file;
         _this.suggestions = options.suggestions;
 
         _this.createAudio();
